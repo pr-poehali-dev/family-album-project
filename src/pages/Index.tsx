@@ -122,13 +122,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-10 animate-fade-in">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-rose-50 to-amber-50">
+      <header className="bg-white/90 backdrop-blur-xl shadow-xl sticky top-0 z-10 animate-fade-in border-b-4 border-primary/20">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-sm">
             Семейный альбом
           </h1>
-          <p className="text-muted-foreground mt-2">Наши счастливые моменты</p>
+          <p className="text-lg text-muted-foreground mt-3 font-medium">Наши счастливые моменты ❤️</p>
         </div>
       </header>
 
@@ -138,7 +138,7 @@ const Index = () => {
             onClick={() => setActiveTab('gallery')}
             variant={activeTab === 'gallery' ? 'default' : 'outline'}
             size="lg"
-            className="transition-all duration-300 hover:scale-105"
+            className="transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
           >
             <Icon name="Image" className="mr-2" size={20} />
             Фотогалерея
@@ -147,7 +147,7 @@ const Index = () => {
             onClick={() => setActiveTab('events')}
             variant={activeTab === 'events' ? 'default' : 'outline'}
             size="lg"
-            className="transition-all duration-300 hover:scale-105"
+            className="transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
           >
             <Icon name="Calendar" className="mr-2" size={20} />
             События
@@ -176,7 +176,7 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-white to-purple-50">
+                <div className="p-4 bg-gradient-to-br from-white to-orange-50">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-semibold text-lg">{photo.title}</h3>
@@ -210,7 +210,7 @@ const Index = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6 md:w-2/3 bg-gradient-to-br from-white to-pink-50">
+                  <div className="p-6 md:w-2/3 bg-gradient-to-br from-white to-rose-50">
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         {event.title}
