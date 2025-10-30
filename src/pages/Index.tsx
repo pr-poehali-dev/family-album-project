@@ -35,7 +35,7 @@ const Index = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [newComment, setNewComment] = useState('');
-  const [activeTab, setActiveTab] = useState<'gallery' | 'events'>('gallery');
+  const [activeTab, setActiveTab] = useState<'gallery' | 'events' | 'timeline'>('gallery');
 
   const [photos, setPhotos] = useState<Photo[]>([
     {
@@ -152,6 +152,15 @@ const Index = () => {
             <Icon name="Calendar" className="mr-2" size={20} />
             События
           </Button>
+          <Button
+            onClick={() => setActiveTab('timeline')}
+            variant={activeTab === 'timeline' ? 'default' : 'outline'}
+            size="lg"
+            className="transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
+          >
+            <Icon name="Clock" className="mr-2" size={20} />
+            Хронология
+          </Button>
         </div>
 
         {activeTab === 'gallery' && (
@@ -190,6 +199,61 @@ const Index = () => {
                 </div>
               </Card>
             ))}
+          </div>
+        )}
+
+        {activeTab === 'timeline' && (
+          <div className="max-w-5xl mx-auto animate-fade-in">
+            <div className="relative">
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-secondary to-accent rounded-full"></div>
+              
+              {[...events].sort((a, b) => {
+                const dateA = new Date(a.date.split(' ').reverse().join('-'));
+                const dateB = new Date(b.date.split(' ').reverse().join('-'));
+                return dateB.getTime() - dateA.getTime();
+              }).map((event, index) => (
+                <div
+                  key={event.id}
+                  className={`relative mb-12 ${index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto md:text-left'}`}
+                  style={{ animationDelay: `${index * 200}ms` }}
+                >
+                  <div className={`flex items-center gap-4 ${index % 2 === 0 ? 'md:flex-row-reverse md:justify-end' : 'md:justify-start'}`}>
+                    <div className="flex-1">
+                      <Card 
+                        className="overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105 group"
+                        onClick={() => setSelectedEvent(event)}
+                      >
+                        <div className="flex flex-col md:flex-row">
+                          <div className="md:w-2/5">
+                            <img
+                              src={event.image}
+                              alt={event.title}
+                              className="w-full h-48 md:h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                          </div>
+                          <div className="p-6 md:w-3/5 bg-gradient-to-br from-white to-rose-50">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Icon name="Calendar" size={16} className="text-primary" />
+                              <span className="text-sm font-semibold text-primary">{event.date}</span>
+                            </div>
+                            <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+                              {event.title}
+                            </h3>
+                            <p className="text-muted-foreground text-sm line-clamp-2">{event.description}</p>
+                            <div className="flex items-center gap-2 text-muted-foreground mt-3">
+                              <Icon name="MessageCircle" size={16} />
+                              <span className="text-xs">{event.comments.length} комментариев</span>
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                    
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full border-4 border-white shadow-lg z-10 animate-scale-in" style={{ animationDelay: `${index * 200 + 100}ms` }}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
